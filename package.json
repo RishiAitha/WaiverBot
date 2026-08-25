@@ -1,0 +1,23 @@
+{
+  "name": "waiverbot",
+  "version": "1.0.0",
+  "description": "Discord Bot for Waiver Reminders",
+  "homepage": "https://github.com/RishiAitha/WaiverBot#readme",
+  "bugs": {
+    "url": "https://github.com/RishiAitha/WaiverBot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RishiAitha/WaiverBot.git"
+  },
+  "license": "ISC",
+  "author": "Rishi Aitha",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^14.27.0"
+  }
+}
