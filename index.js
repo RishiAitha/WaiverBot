@@ -3,6 +3,8 @@
 // 2 - Opted-Out of Shoot
 
 // Require the necessary discord.js classes
+const fs = require('node:fs');
+const path = require('node:path');
 const { Client, Events, GatewayIntentBits, Partials } = require('discord.js');
 const { Keyv } = require('keyv');
 const { token } = require('./config.json');
@@ -14,6 +16,10 @@ const client = new Client({
 	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
 	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
+
+client.commands = new Collection();
+
+// TODO: Handle commands
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
@@ -69,7 +75,18 @@ client.on(Events.MessageReactionRemove, async (reaction, user) => {
 
 	let hasOtherReactions = false;
 	
-	// check if user has other reactions on this message
+	const message = reaction.message;
+	if (message.partial) await message.fetch();
+
+	for (const r of message.reactions.cache.values()) {
+		if (r.emoji.identifier === reaction.emoji.identifier) continue;
+		
+		const users = await r.users.fetch();
+		if (users.has(user.id)) {
+			hasOtherReactions = true;
+			break;
+		}
+	}
 
 	if (!hasOtherReactions) {
 		const userKey = `users:${user.id}`;
