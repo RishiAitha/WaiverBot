@@ -15,7 +15,7 @@ module.exports = {
 		const historian = interaction.options.getUser('user');
         const successful = await keyv.delete(`historians:${historian.id}`);
 		if (successful) {
-			await interaction.reply({content: `Removed ${historian.username} to the historians list.`, fetchReply: false});
+			await interaction.reply({content: `Removed ${historian.username} from the historians list.`, fetchReply: false});
 		} else {
 			await interaction.reply({content: `There was an error removing ${historian.username} or they were not a historian.`, fetchReply: false});
 		}
